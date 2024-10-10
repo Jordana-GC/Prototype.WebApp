@@ -5,64 +5,64 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AR Rubber Duck</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://rawcdn.githack.com/AR-js-org/AR.js/3.3.2/aframe/build/aframe-ar.min.js"></script>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
   </head>
   <h1>AR Model Prototype</h1>
-  <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
 
   <body style="margin: 0; overflow: hidden">
-    <a-scene embedded arjs="sourceType: webcam; locationEnabled: true;">
-      <!-- Rubber Duck model with larger size -->
+    <a-scene embedded arjs> <!--="sourceType: webcam; locationEnabled: true;"-->
+     
+      <a-marker type="pattern" url="markers/marker.patt">
+
+      <!--gps-entity-place="latitude: 52.782778; longitude: 6.941389"
+      event-set__mouseenter="_event: mouseenter; scale: 9 9 9"
+        event-set__mouseleave="_event: mouseleave; scale: 8 8 8"
+      -->
       <a-entity
         id="rubber-duck"
-        gps-entity-place="latitude: 52.782778; longitude: 6.941389"
         gltf-model="url(./assets/model.glb)"
-        scale="0.5 0.5 0.5"
-        class="clickable"
-        event-set__mouseenter="_event: mouseenter; scale: 9 9 9"
-        event-set__mouseleave="_event: mouseleave; scale: 8 8 8"
-        click-detect
+        scale="1 1 1"
       >
         <!-- Custom component for click detection -->
       </a-entity>
+    </a-marker>
 
       <!-- Camera that follows your phone's position -->
       <a-camera gps-camera rotation-reader></a-camera>
 
-      <!-- Text to display on click -->
-      <div id="message" class="click-text">Hello</div>
     </a-scene>
 
     <script>
-      const duck = document.querySelector("#rubber-duck");
-      const message = document.getElementById("message");
+      // const duck = document.querySelector("#rubber-duck");
+      // const message = document.getElementById("message");
 
-      // Add click detection component
-      AFRAME.registerComponent("click-detect", {
-        init: function () {
-          this.el.addEventListener("click", () => {
-            // Toggle the visibility of the message
-            if (
-              message.style.display === "none" ||
-              message.style.display === ""
-            ) {
-              // Show the message
-              message.style.display = "block";
+      // // Add click detection component
+      // AFRAME.registerComponent("click-detect", {
+      //   init: function () {
+      //     this.el.addEventListener("click", () => {
+      //       // Toggle the visibility of the message
+      //       if (
+      //         message.style.display === "none" ||
+      //         message.style.display === ""
+      //       ) {
+      //         // Show the message
+      //         message.style.display = "block";
 
-              // Center the message on the screen
-              message.style.left = `${
-                window.innerWidth / 2 - message.offsetWidth / 2
-              }px`; // Center it horizontally
-              message.style.top = `${
-                window.innerHeight / 2 - message.offsetHeight / 2
-              }px`; // Center it vertically
-            } else {
-              // Hide the message
-              message.style.display = "none";
-            }
-          });
-        },
-      });
+      //         // Center the message on the screen
+      //         message.style.left = `${
+      //           window.innerWidth / 2 - message.offsetWidth / 2
+      //         }px`; // Center it horizontally
+      //         message.style.top = `${
+      //           window.innerHeight / 2 - message.offsetHeight / 2
+      //         }px`; // Center it vertically
+      //       } else {
+      //         // Hide the message
+      //         message.style.display = "none";
+      //       }
+      //     });
+      //   },
+      // });
 
       // Script to handle dynamic scaling based on distance from the camera
       duck.addEventListener("model-loaded", () => {
@@ -75,7 +75,7 @@
           if (distance < 5) {
             duck.setAttribute("scale", "9 9 9"); // Scale up if close
           } else {
-            duck.setAttribute("scale", "8 8 8"); // Default size
+            duck.setAttribute("scale", "1 1 1"); // Default size
           }
         });
       });
