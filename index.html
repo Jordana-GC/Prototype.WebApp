@@ -6,15 +6,14 @@
     <title>AR Rubber Duck</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-    <script src="https://rawcdn.githack.com/AR-js-org/AR.js/3.3.2/aframe/build/aframe-ar.min.js"></script>
+    <script src="https://rawcdn.githack.com/AR-js-org/AR.js/3.3.2/aframe/build/aframe-ar-nft.min.js"></script>
 
   </head>
   <h1>AR Model Prototype</h1>
 
   <body style="margin: 0; overflow: hidden">
-    <a-scene embedded arjs> <!--= locationEnabled: true;"-->
+    <a-scene embedded arjs="sourceType: webcam; locationEnabled: true; debugUIEnabled: false;"> <!--= locationEnabled: true;"-->
      
-      <a-marker preset="hiro" emitevents="true">
 
       <!--gps-entity-place="latitude: 52.782778; longitude: 6.941389"
       event-set__mouseenter="_event: mouseenter; scale: 9 9 9"
@@ -22,32 +21,29 @@
       -->
       <a-entity
         id="rubber-duck"
-        gltf-model="https://cdn.aframe.io/test-models/models/box/box.gltf"
-        scale="1 1 1"
-        position="0 0 0" 
-        rotation="0 0 0"
-      >
+        gps-entity-place="latitude: 52.5200; longitude: 13.4050"
+        gltf-model="url(./assets/model.glb)"
+        scale="5 5 5"
+        position="0 0 0"
+        rotation="0 180 0">
       </a-entity>
-    </a-marker>
 
       <!-- Camera that follows your phone's position -->
-      <a-entity camera></a-entity>
+      <a-camera gps-camera rotation-reader></a-camera><a-entity camera></a-entity>
 
 
     </a-scene>
 
     <script>
-      document.querySelector('a-marker').addEventListener('markerFound', function () {
-        console.log('Marker found');
-      });
-      
-      document.querySelector('a-marker').addEventListener('markerLost', function () {
-        console.log('Marker lost');
-      });
-    
+      // Log when the 3D model is loaded
       const duck = document.querySelector('#rubber-duck');
       duck.addEventListener('model-loaded', () => {
-        console.log('Model loaded');
+        console.log('Rubber duck model loaded at GPS location');
+      });
+
+      // Optional: Listen for GPS events
+      window.addEventListener('gps-camera-update-position', function (e) {
+        console.log('New position:', e.detail.position);
       });
     </script>
 
