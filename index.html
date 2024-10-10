@@ -5,13 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AR Rubber Duck</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://rawcdn.githack.com/AR-js-org/AR.js/3.3.2/aframe/build/aframe-ar.min.js"></script>
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://rawcdn.githack.com/AR-js-org/AR.js/3.3.2/aframe/build/aframe-ar.min.js"></script>
+
   </head>
   <h1>AR Model Prototype</h1>
 
   <body style="margin: 0; overflow: hidden">
-    <a-scene embedded arjs "sourceType: webcam;"> <!--= locationEnabled: true;"-->
+    <a-scene embedded arjs> <!--= locationEnabled: true;"-->
      
       <a-marker preset="hiro">
 
@@ -30,56 +31,12 @@
     </a-marker>
 
       <!-- Camera that follows your phone's position -->
-      <a-camera gps-camera rotation-reader></a-camera>
+      <a-entity camera></a-entity>
+
 
     </a-scene>
 
-    <script>
-      // const duck = document.querySelector("#rubber-duck");
-      // const message = document.getElementById("message");
-
-      // // Add click detection component
-      // AFRAME.registerComponent("click-detect", {
-      //   init: function () {
-      //     this.el.addEventListener("click", () => {
-      //       // Toggle the visibility of the message
-      //       if (
-      //         message.style.display === "none" ||
-      //         message.style.display === ""
-      //       ) {
-      //         // Show the message
-      //         message.style.display = "block";
-
-      //         // Center the message on the screen
-      //         message.style.left = `${
-      //           window.innerWidth / 2 - message.offsetWidth / 2
-      //         }px`; // Center it horizontally
-      //         message.style.top = `${
-      //           window.innerHeight / 2 - message.offsetHeight / 2
-      //         }px`; // Center it vertically
-      //       } else {
-      //         // Hide the message
-      //         message.style.display = "none";
-      //       }
-      //     });
-      //   },
-      // });
-
-      // Script to handle dynamic scaling based on distance from the camera
-      duck.addEventListener("model-loaded", () => {
-        const duckPosition = duck.object3D.position;
-        const camera = document.querySelector("a-camera");
-
-        camera.addEventListener("camera-update", () => {
-          const distance = duckPosition.distanceTo(camera.object3D.position);
-          // Adjust scale based on distance
-          if (distance < 5) {
-            duck.setAttribute("scale", "9 9 9"); // Scale up if close
-          } else {
-            duck.setAttribute("scale", "1 1 1"); // Default size
-          }
-        });
-      });
-    </script>
+    <script src="app.js"></script>
+    
   </body>
 </html>
